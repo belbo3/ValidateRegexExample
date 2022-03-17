@@ -47,11 +47,11 @@ extension PasswordErrors: CustomStringConvertible {
 
 // MARK: - Class
 
-class RegisterData {
+class ValidateData {
   private(set) var email: String!
   private(set) var password: String!
   
-  func setUpEmail(_ email: String) throws {
+  func validateEmail(_ email: String) throws {
     let emailRegex = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
     let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailRegex)
     if emailPredicate.evaluate(with: email) {
@@ -64,7 +64,7 @@ class RegisterData {
     }
   }
   
-  func setUpPassword(_ password: String, uppercased: Bool = false, number: Bool = false, special: Bool = false, countMin: Int = 1, countMax: Int = 100) throws {
+  func validatePassword(_ password: String, uppercased: Bool = false, number: Bool = false, special: Bool = false, countMin: Int = 1, countMax: Int = 100) throws {
     let uppercasedRegex = uppercased ? "(?=.*[A-Za-z])" : ""
     let numberRegex = number ? "(?=.*[0-9])" : ""
     let specialRegex = special ? "(?=.*[$@$!%*#?&])" : ""
@@ -106,12 +106,12 @@ class RegisterData {
 
 // MARK: - Mock class
 
-class RegisterData_mock: RegisterData {
-  override func setUpEmail(_ email: String) throws {
-    try super.setUpEmail(email)
+class RegisterData_mock: ValidateData {
+  override func validateEmail(_ email: String) throws {
+    try super.validateEmail(email)
   }
   
-  override func setUpPassword(_ password: String, uppercased: Bool = false, number: Bool = false, special: Bool = false, countMin: Int = 1, countMax: Int = 100) throws {
-    try super.setUpPassword(password, uppercased: uppercased, number: number, special: special, countMin: countMin, countMax: countMax)
+  override func validatePassword(_ password: String, uppercased: Bool = false, number: Bool = false, special: Bool = false, countMin: Int = 1, countMax: Int = 100) throws {
+    try super.validatePassword(password, uppercased: uppercased, number: number, special: special, countMin: countMin, countMax: countMax)
   }
 }

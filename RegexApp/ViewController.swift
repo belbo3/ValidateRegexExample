@@ -10,8 +10,8 @@ import UIKit
 final class ViewController: UIViewController {
   // MARK: - Private properties
   
-  lazy private var register: RegisterData = {
-    return RegisterData()
+  lazy private var register: ValidateData = {
+    return ValidateData()
   }()
   
   // MARK: - Lifecycle
@@ -19,15 +19,15 @@ final class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    setEmail()
-    setPassword()
+    validateEmail("qasw2000@mail.com")
+    validatePassword("wsdE@1234")
   }
   
   // MARK: - private methods
   
-  private func setEmail() {
+  private func validateEmail(_ email: String) {
     do {
-      try register.setUpEmail("qasw2000@mail.com")
+      try register.validateEmail(email)
     } catch EmailErrors.emptyError {
       // FIXME: - add error handler for empty email row
     } catch EmailErrors.validateError {
@@ -39,9 +39,9 @@ final class ViewController: UIViewController {
     print(register.email ?? "email nil")
   }
   
-  private func setPassword() {
+  private func validatePassword(_ password: String) {
     do {
-      try register.setUpPassword("wsdE@1234", uppercased: true, number: true, special: true, countMin: 8, countMax: 16)
+      try register.validatePassword(password, uppercased: true, number: true, special: true, countMin: 8, countMax: 16)
     } catch PasswordErrors.emptyError {
       // FIXME: - add error handler for empty password row
     } catch PasswordErrors.numberError {

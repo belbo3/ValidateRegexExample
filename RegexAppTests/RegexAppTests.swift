@@ -21,7 +21,7 @@ class RegexAppTests: XCTestCase {
   }
   
   func testEmailEmpty() {
-    XCTAssertThrowsError(try sut.setUpEmail("")) {
+    XCTAssertThrowsError(try sut.validateEmail("")) {
       error = $0
     }
     
@@ -31,7 +31,7 @@ class RegexAppTests: XCTestCase {
   }
   
   func testEmailNotValidated() {
-    XCTAssertThrowsError(try sut.setUpEmail("yakobshe@i..ua")) {
+    XCTAssertThrowsError(try sut.validateEmail("yakobshe@i..ua")) {
       error = $0
     }
     
@@ -41,12 +41,12 @@ class RegexAppTests: XCTestCase {
   }
   
   func testEmailValidated() {
-    try! sut.setUpEmail("yakobshe@gmail.com.ua")
+    try! sut.validateEmail("yakobshe@gmail.com.ua")
     XCTAssertEqual(sut.email, "yakobshe@gmail.com.ua")
   }
   
   func testPasswordForEmpty() {
-    XCTAssertThrowsError(try sut.setUpPassword("")) {
+    XCTAssertThrowsError(try sut.validatePassword("")) {
       error = $0
     }
     
@@ -56,7 +56,7 @@ class RegexAppTests: XCTestCase {
   }
   
   func testPasswordForSpecial() {
-    XCTAssertThrowsError(try sut.setUpPassword("234dg5F", special: true)) {
+    XCTAssertThrowsError(try sut.validatePassword("234dg5F", special: true)) {
       error = $0
     }
     
@@ -66,7 +66,7 @@ class RegexAppTests: XCTestCase {
   }
   
   func testPasswordForNumber() {
-    XCTAssertThrowsError(try sut.setUpPassword("qwertyasdfgh", number: true)) {
+    XCTAssertThrowsError(try sut.validatePassword("qwertyasdfgh", number: true)) {
       error = $0
     }
     
@@ -76,7 +76,7 @@ class RegexAppTests: XCTestCase {
   }
   
   func testPasswordValidate() {
-    try! sut.setUpPassword("qasW@123", uppercased: true, number: true, special: true, countMin: 8, countMax: 16)
+    try! sut.validatePassword("qasW@123", uppercased: true, number: true, special: true, countMin: 8, countMax: 16)
     XCTAssertEqual(sut.password, "qasW@123")
   }
 }
